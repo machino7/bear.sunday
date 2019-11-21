@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx: 
+    build: ./docker/nginx/
+    volumes:
+      - .:/media
+      - /etc/localtime:/etc/localtime:ro
+    links:
+      - php
+
+  php:
+    build: ./docker/php-fpm
+    volumes:
+      - .:/media
+      - /etc/localtime:/etc/localtime:ro
+    links:
+      - mariadb
+
+  mariadb:
+    build: ./docker/mariadb
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpass
+      MYSQL_ROOT_PASSWORD: passwd
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - /usr/lib/locale/locale-archive:/usr/lib/locale/locale-archive:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  mariadb-data:
