@@ -19,4 +19,4 @@ RUN apt update \
 WORKDIR /usr/bin
 RUN curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
 
-WORKDIR /media
+WORKDIR /media/MyVendor.MyApp
